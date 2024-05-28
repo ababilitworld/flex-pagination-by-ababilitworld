@@ -1,0 +1,35 @@
+{
+    "name": "ababilitworld/flex-pagination-by-ababilitworld",
+    "description": "A package for pagination in wordpress by Ababil IT World.",
+    "keywords": ["pagination", "wordpress"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ababil It World",
+            "email": "ababilitworld@email.com",
+            "homepage": "https://ababilitworld.com/"
+        },
+        {
+            "name": "Md Shafiul Alam",
+            "email": "cse.shafiul@email.com",
+            "homepage": "https://ababilitworld.com/"
+        },
+        {
+            "name": "Premium Addons",
+            "email": "premiumaddons@email.com",
+            "homepage": "https://ababilitworld.com/"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Ababilitworld\\FlexPaginationByAbabilitworld\\Package\\": "src/Package"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ababilitworld/flex-pagination-by-ababilitworld"
+        }
+    ]
+}
