@@ -4,105 +4,90 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Service;
 
 (defined( 'ABSPATH' ) && defined( 'WPINC' )) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Trait\StaticTrait\StaticTrait;
+use Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract\Pagination;
 use function Ababilitworld\{
-    FlexPluginInfoByAbabilitworld\Package\Service\service as plugin_info,
-    FlexPaginationByAbabilitworld\Package\package as flex_pagination
+    FlexPaginationByAbabilitworld\Package\Presentation\Template\template as pagination_template,
 };
 
-if ( ! class_exists( '\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\Service' ) ) 
+if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\Service')) 
 {
-    class Service 
+    class Service extends Pagination
     {
-        use StaticTrait;
-
-        private $pagination;
-
         /**
-         * Constructor
+         * Constructor.
          */
-        public function __construct() 
-		{
-            $this->pagination = flex_pagination();
-            $this->pagination || die();
-            add_action('admin_enqueue_scripts', array($this, 'enqueue'));
-            add_action('wp_enqueue_scripts', array($this, 'enqueue'));
+        public function __construct()
+        {
+            // Constructor can initialize other settings if needed
         }
 
-        public function enqueue() 
+        /**
+         * Initialize the service with query and attributes.
+         *
+         * @param array $data Initialization data including 'query' and 'attribute'.
+         */
+        public function init($data)
         {
-            wp_enqueue_style(
-                $this->pagination::$package_pre_hyph . '-style', 
-                $this->pagination::$package_asset_url . 'css/style.css',
-                array(), 
-                time()
-            );
+            $this->query = $data['query'];
+            $this->attribute = $data['attribute'];
+        }
 
-            wp_enqueue_script(
-                $this->pagination::$package_pre_hyph . '-script', 
-                $this->pagination::$package_asset_url . 'js/script.js',
-                array(), 
-                time(), 
-                true
-            );
-            
-            wp_localize_script(
-                $this->pagination::$package_pre_hyph . '-script', 
-                $this->pagination::$package_pre_unds . '_localize', 
+        /**
+         * Paginate the query results.
+         */
+        public function paginate()
+        {
+            $this->currentPage = max(1, intval($this->query->get('paged', 1)));
+            $this->totalPages = intval($this->query->max_num_pages);
+            $this->query->set('paged', $this->currentPage);
+            $this->paginationLinks = $this->pagination_links();
+        }
+
+        /**
+         * Generate pagination links.
+         *
+         * @return array Pagination links.
+         */
+        public function pagination_links()
+        {
+            $big = 999999999;
+            $base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
+
+            if (is_admin()) {
+                $base = add_query_arg(
+                    array(
+                        'paged' => '%#%',
+                    ),
+                    admin_url('admin.php')
+                );
+            }
+
+            return paginate_links(
                 array(
-                    'adminAjaxUrl' => admin_url('admin-ajax.php'),
-                    'ajaxUrl' => admin_url('admin-ajax.php'),
-                    'ajaxNonce' => wp_create_nonce($this->pagination::$package_pre_unds . '_nonce'),
-                    'ajaxAction' => $this->pagination::$package_pre_unds . '_action',
-                    'ajaxData' => $this->pagination::$package_pre_unds . '_data',
-                    'ajaxError' => $this->pagination::$package_pre_unds . '_error',
+                    'base' => $base,
+                    'format' => '?paged=%#%',
+                    'current' => $this->currentPage,
+                    'total' => $this->totalPages,
+                    'prev_text' => __('« Previous'),
+                    'next_text' => __('Next »'),
+                    'type' => 'array',
                 )
             );
         }
 
-        public function paginate($query = null,$attribute) 
+        /**
+         * Render the pagination.
+         */
+        public function render()
         {
-            if (null === $query) 
-            {
-                global $wp_query;
-                $query = $wp_query;
-            }
-    
-            $big = 999999999;
-            
-            if (is_admin()) 
-            {
-                $paged = isset($_GET['paged']) ? intval($_GET['paged']) : 1;
-                global $pagenow;
-                $base = add_query_arg(array(
-                    'paged' => '%#%',
-                    'post_type' => $attribute['post_type'],
-                    'page' => $attribute['page']
-                ), admin_url($pagenow));
-            }
-            else 
-            {
-                $paged = max(1, get_query_var('paged'));
-                $base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
-            }
-
-            $pagination_links = paginate_links(array(
-                'base'            => $base,
-                'format'          => '&paged=%#%',
-                'current'         => $paged,
-                'total'           => $query->max_num_pages,
-                'prev_text'       => __('« Prev'),
-                'next_text'       => __('Next »'),
-                'type'            => 'array',
-            ));
-
-            if ($pagination_links) 
-            {
-                echo '<div class="pagination">' . join("\n", $pagination_links) . '</div>';
-            }
-        
+            $paginationTemplate = pagination_template();
+            $paginationTemplate->default_pagination_template(
+                array(
+                    'paged' => $this->currentPage,
+                    'pagination_links' => $this->paginationLinks,
+                )
+            );
         }
-
     }
 
     //new Service();

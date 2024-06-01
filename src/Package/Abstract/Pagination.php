@@ -7,98 +7,43 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract;
 use Ababilitworld\FlexTraitByAbabilitworld\Trait\StaticTrait\StaticTrait;
 use Ababilitworld\FlexTraitByAbabilitworld\Trait\Security\Sanitization\Sanitization;
 use Ababilitworld\FlexPaginationByAbabilitworld\Package\Interface\Pagination as PaginationInterface;
-use Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Template\Template;
 
-if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract')) 
+use function Ababilitworld\{
+    FlexPaginationByAbabilitworld\Package\Service\service as pagination_service,
+    FlexPaginationByAbabilitworld\Package\Presentation\Template\template as pagination_template,
+};
+
+if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract\Pagination')) 
 {
     abstract class Pagination implements PaginationInterface
     {
         use StaticTrait, Sanitization;
 
         protected $query;
+        protected $attribute;
         protected $totalPages;
         protected $currentPage;
+        protected $paginationLinks;
 
-        abstract public function paginate($query);
-
-        abstract public function render($query, $attribute);
-
-        public function paginate_default($query) 
+        /**
+         * Constructor.
+         *
+         * @param array $data Initialization data including 'query' and 'attribute'.
+         */
+        public function __construct($data)
         {
-            $this->query = $query;
-            $this->currentPage = max(1, $this->query->get_query_var('paged'));
-            $this->totalPages = $query->max_num_pages;
-            
-            $query->query_vars['paged'] = $this->currentPage;
+            $this->query = $data['query'];
+            $this->attribute = $data['attribute'];
         }
 
-        public function render_default($query, $attribute)
-        {
-            $big = 999999999;
-            
-            if (is_admin()) 
-            {
-                $paged = isset($_GET['paged']) ? intval($_GET['paged']) : 1;
-                global $pagenow;
-                $base = add_query_arg(array(
-                    'paged' => '%#%',
-                    'page' => $attribute['page']
-                ), admin_url($pagenow));
-            }
-            else
-            {
-                $paged = max(1, get_query_var('paged'));
-                $base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
-            }
+        abstract public function init($data);
 
-            $pagination_links = paginate_links(array(
-                'base'            => $base,
-                'format'          => '?paged=%#%',
-                'current'         => $paged,
-                'total'           => $query->max_num_pages,
-                'prev_text'       => __('« Previous'),
-                'next_text'       => __('Next »'),
-                'type'            => 'array',
-            ));
+        abstract public function paginate();
 
-            if ($pagination_links) 
-            {
-                echo '<div class="pagination">' . join("\n", $pagination_links) . '</div>';
-            }
-        }
+        abstract public function pagination_links();
 
-        public function ajax_render_default($query, $attribute)
-        {
-            $big = 999999999;
-            $paged = max(1, get_query_var('paged'));
-            $base = str_replace($big, '%#%', esc_url(get_pagenum_link($big)));
-
-            if (is_admin()) 
-            {
-                $base = add_query_arg(array(
-                    'paged' => '%#%',
-                    'page' => $attribute['page']
-                ), admin_url('admin.php'));
-            }
-
-            $pagination_links = paginate_links(array(
-                'base' => $base,
-                'format' => '?paged=%#%',
-                'current' => $paged,
-                'total' => $query->max_num_pages,
-                'prev_text' => __('« Previous'),
-                'next_text' => __('Next »'),
-                'type' => 'array',
-            ));
-
-            if ($pagination_links) 
-            {
-                echo '<div class="pagination" data-current-page="' . $paged . '">' . join("\n", $pagination_links) . '</div>';
-            }
-        }
-
+        abstract public function render();
     }
-
 }
 
 ?>

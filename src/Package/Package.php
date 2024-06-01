@@ -51,11 +51,11 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Package'
         public static $package_pre_hyph;
 
         /**
-         * Static Package Asset URL
+         * Static Package URL
          *
          * @var string
          */
-        public static $package_asset_url;
+        public static $package_url;
 
         /**
          * Static Package DIR
@@ -87,11 +87,11 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Package'
             
             if ($this->package_parent_plugin_info && isset($this->package_parent_plugin_info->parent_plugin_url)) 
             {
-                self::set_static('package_asset_url', $this->package_parent_plugin_info->parent_plugin_url . '/vendor/' . self::$vendor_name. '/' . self::$package_name . '/src/Package/Asset/');
+                self::set_static('package_url', $this->package_parent_plugin_info->parent_plugin_url . '/vendor/' . self::$vendor_name. '/' . self::$package_name . '/src/Package');
             }
             else 
             {
-                self::set_static('package_asset_url', '');
+                self::set_static('package_url', '');
             }
         }
     }
