@@ -30,6 +30,8 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\
         {
             $this->query = $data['query'];
             $this->attribute = $data['attribute'];
+            $this->paginate();
+            $this->paginationLinks = $this->pagination_links();
         }
 
         /**
@@ -40,7 +42,6 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\
             $this->currentPage = max(1, intval($this->query->get('paged', 1)));
             $this->totalPages = intval($this->query->max_num_pages);
             $this->query->set('paged', $this->currentPage);
-            $this->paginationLinks = $this->pagination_links();
         }
 
         /**

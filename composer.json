@@ -14,11 +14,6 @@
             "name": "Md Shafiul Alam",
             "email": "cse.shafiul@email.com",
             "homepage": "https://ababilitworld.com/"
-        },
-        {
-            "name": "Premium Addons",
-            "email": "premiumaddons@email.com",
-            "homepage": "https://ababilitworld.com/"
         }
     ],
     "autoload": {
