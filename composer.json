@@ -4,6 +4,7 @@
     "keywords": ["pagination", "wordpress"],
     "type": "library",
     "license": "MIT",
+    "license_uri": "https://opensource.org/licenses/MIT",
     "authors": [
         {
             "name": "Ababil It World",
@@ -13,6 +14,11 @@
         {
             "name": "Md Shafiul Alam",
             "email": "cse.shafiul@email.com",
+            "homepage": "https://ababilitworld.com/"
+        },
+        {
+            "name": "Premium Addons",
+            "email": "premiumaddons@email.com",
             "homepage": "https://ababilitworld.com/"
         }
     ],
