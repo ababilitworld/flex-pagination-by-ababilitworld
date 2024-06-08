@@ -4,16 +4,16 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Trait\StaticTrait\StaticTrait;
+use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
 use function Ababilitworld\{
     FlexPluginInfoByAbabilitworld\Package\Service\service as plugin_info
 };
 
-if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Package')) 
+if (!class_exists(__NAMESPACE__.'\Package')) 
 {
     class Package 
     {
-        use StaticTrait;
+        use Standard;
 
         /**
          * Static Vendor Name

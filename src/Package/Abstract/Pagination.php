@@ -4,8 +4,8 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Trait\StaticTrait\StaticTrait;
-use Ababilitworld\FlexTraitByAbabilitworld\Trait\Security\Sanitization\Sanitization;
+use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
+use Ababilitworld\FlexTraitByAbabilitworld\Security\Sanitization\Sanitization;
 use Ababilitworld\FlexPaginationByAbabilitworld\Package\Interface\Pagination as PaginationInterface;
 
 use function Ababilitworld\{
@@ -17,7 +17,7 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract
 {
     abstract class Pagination implements PaginationInterface
     {
-        use StaticTrait, Sanitization;
+        use Standard,Sanitization;
 
         protected $query;
         protected $attribute;

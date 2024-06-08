@@ -4,17 +4,17 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Trait\StaticTrait\StaticTrait;
+use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
 use function Ababilitworld\{
     FlexPluginInfoByAbabilitworld\Package\Service\service as plugin_info,
     FlexPaginationByAbabilitworld\Package\package as package,
 };
 
-if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Presentation')) 
+if (!class_exists(__NAMESPACE__.'\Presentation')) 
 {
     class Presentation 
     {
-        use StaticTrait;
+        use Standard;
 
         private $package;
 
@@ -24,8 +24,6 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Presenta
         }
     }
 
-    //new Presentation();
-	
     /**
      * Return the instance
      *
@@ -35,9 +33,6 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Presenta
     {
         return Presentation::instance();
     }
-
-    // take off
-    //presentation();
 }
 
 ?>
