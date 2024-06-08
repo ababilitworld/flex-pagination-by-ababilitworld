@@ -4,15 +4,18 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Service;
 
 (defined( 'ABSPATH' ) && defined( 'WPINC' )) || die();
 
+use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
 use Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract\Pagination;
 use function Ababilitworld\{
     FlexPaginationByAbabilitworld\Package\Presentation\Template\template as pagination_template,
 };
 
-if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\Service')) 
+if (!class_exists(__NAMESPACE__.'\Service')) 
 {
     class Service extends Pagination
     {
+        use Standard;
+
         /**
          * Constructor.
          */
@@ -90,8 +93,6 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\
             );
         }
     }
-
-    //new Service();
 	
     /**
      * Return the instance
@@ -102,9 +103,6 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\
     {
         return Service::instance();
     }
-
-    // take off
-    //service();
 		
 }
 
