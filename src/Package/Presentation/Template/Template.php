@@ -5,55 +5,52 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Templ
 
 use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
 use function Ababilitworld\{
-    FlexPluginInfoByAbabilitworld\Package\Service\service as plugin_info,
-    FlexPaginationByAbabilitworld\Package\package as package,
+    FlexPackageInfoByAbabilitworld\Package\Service\service as plugin_info,
+    FlexPortfolioByAbabilitworld\Package\package as package,
+};
+use const AbabilItWorld\{
+    FlexPaginationByAbabilitworld\Package\PACKAGE_NAME,
+    FlexPaginationByAbabilitworld\Package\PACKAGE_URL,
 };
 
-if (!class_exists(__NAMESPACE__.'\Template')) 
+
+if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio\Presentation\Pagination\Template\Template')) 
 {
     class Template 
     {
         use Standard;
-
-        private $package;
         private $template_url;
+        private $asset_url;
 
         public function __construct() 
         {
-            $this->package = package();
+            $this->asset_url = self::get_url('/vendor/ababilitworld/flex-pagination-by-ababilitworld/src/Package/Presentation/Template/Asset/');
             add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts' ) );
             add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts' ) );
         }
 
         public function enqueue_scripts()
         {
-            wp_enqueue_style(
-                $this->package::$package_pre_hyph . '-template-style', 
-                $this->package::$package_url . '/Presentation/Template/Asset/css/style.css',
-                array(), 
-                time()
-            );
+            if (!wp_style_is('flex-pagination-by-ababilitworld-template-style', 'enqueued')) 
+            {
+                wp_enqueue_style(
+                    'flex-pagination-by-ababilitworld-template-style', 
+                    $this->asset_url.'/css/style.css',
+                    array(), 
+                    time()
+                );
+            }
 
-            wp_enqueue_script(
-                $this->package::$package_pre_hyph . '-template-script', 
-                $this->package::$package_url . '/Presentation/Template/Asset/js/script.js',
-                array(), 
-                time(), 
-                true
-            );
-            
-            wp_localize_script(
-                $this->package::$package_pre_hyph . '-template-script', 
-                $this->package::$package_pre_unds . '_template_localize', 
-                array(
-                    'adminAjaxUrl' => admin_url('admin-ajax.php'),
-                    'ajaxUrl' => admin_url('admin-ajax.php'),
-                    'ajaxNonce' => wp_create_nonce($this->package::$package_pre_unds . '_nonce'),
-                    'ajaxAction' => $this->package::$package_pre_unds . '_action',
-                    'ajaxData' => $this->package::$package_pre_unds . '_data',
-                    'ajaxError' => $this->package::$package_pre_unds . '_error',
-                )
-            );
+            if (!wp_script_is('flex-pagination-by-ababilitworld-template-script', 'enqueued')) 
+            {
+                wp_enqueue_script(
+                    'flex-pagination-by-ababilitworld-template-script', 
+                    $this->asset_url.'/js/script.js',
+                    array(), 
+                    time(), 
+                    true
+                );
+            }
         }
 
         public static function render_pagination(array $paginationData) 
@@ -77,29 +74,30 @@ if (!class_exists(__NAMESPACE__.'\Template'))
             <?php
         }
 
-        public function default_pagination_template(array $data) 
+        public static function default_pagination_template(array $data) 
         {
-            if ($data['pagination_links'])
+            if (array_key_exists('pagination_links',$data) && is_array($data['pagination_links']))
             {
+                //echo "<Pre>";print_r($data);echo "</pre>";exit;
+                $pagination_links = join("\n", $data['pagination_links']);
             ?>
             
-                <div class="pagination" data-current-page="<?php echo esc_attr($data['paged']); ?>"><?php join("\n", $data['pagination_links']); ?></div>
+                <div class="pagination" data-current-page="<?php echo esc_attr($data['paged']); ?>"><?php echo $pagination_links; ?></div>
                 
             <?php
             }
         }
     }
-    	
+
     /**
      * Return the instance
      *
-     * @return \Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Template\Template
+     * @return \Ababilitworld\FlexPortfolioByAbabilitworld\Package\Presentation\Pagination\Template\Template
      */
     function template() 
     {
         return Template::instance();
     }
-
 }
 
 ?>

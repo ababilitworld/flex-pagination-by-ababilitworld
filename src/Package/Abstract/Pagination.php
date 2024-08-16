@@ -24,6 +24,7 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract
         protected $totalPages;
         protected $currentPage;
         protected $paginationLinks;
+        protected $paginationTemplate;
 
         /**
          * Constructor.
