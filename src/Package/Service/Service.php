@@ -15,13 +15,14 @@ if (!class_exists(__NAMESPACE__.'\Service'))
     class Service extends Pagination
     {
         use Standard;
+        private $paginationTemplate;
 
         /**
          * Constructor.
          */
         public function __construct()
         {
-            // Constructor can initialize other settings if needed
+            $this->paginationTemplate = pagination_template();
         }
 
         /**
@@ -33,8 +34,6 @@ if (!class_exists(__NAMESPACE__.'\Service'))
         {
             $this->query = $data['query'];
             $this->attribute = $data['attribute'];
-            $this->paginate();
-            $this->paginationLinks = $this->pagination_links();
         }
 
         /**
@@ -45,6 +44,8 @@ if (!class_exists(__NAMESPACE__.'\Service'))
             $this->currentPage = max(1, intval($this->query->get('paged', 1)));
             $this->totalPages = intval($this->query->max_num_pages);
             $this->query->set('paged', $this->currentPage);
+            $this->paginationLinks = $this->pagination_links();                
+            $this->render();
         }
 
         /**
@@ -84,8 +85,7 @@ if (!class_exists(__NAMESPACE__.'\Service'))
          */
         public function render()
         {
-            $paginationTemplate = pagination_template();
-            $paginationTemplate->default_pagination_template(
+            $this->paginationTemplate::default_pagination_template(
                 array(
                     'paged' => $this->currentPage,
                     'pagination_links' => $this->paginationLinks,
