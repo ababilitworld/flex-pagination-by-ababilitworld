@@ -24,7 +24,7 @@ if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio
 
         public function __construct() 
         {
-            $this->asset_url = self::get_url('/vendor/ababilitworld/flex-pagination-by-ababilitworld/src/Package/Presentation/Template/Asset/');
+            $this->asset_url = $this->get_url('Asset/');
             add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts' ) );
             add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts' ) );
         }

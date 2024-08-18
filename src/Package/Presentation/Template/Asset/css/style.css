@@ -9,7 +9,7 @@
 {
     margin: 0 2px;
     padding: 8px 16px;
-    border: 1px solid #ddd;
+    border: 1px solid #0073aa;
     text-decoration: none;
     color: #0073aa;
 }
@@ -19,12 +19,16 @@
 .ababilitworld .fpba .pagination .page-numbers:hover,
 .ababilitworld .fpba .pagination .page-numbers:focus
 {
-    background-color: #f1f1f1;
+    background-color: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+    cursor: pointer;
 }
 
-.ababilitworld .fpba .pagination .current 
+.ababilitworld .fpba .pagination .current
 {
     background-color: #0073aa;
     color: #fff;
     border-color: #0073aa;
+    cursor: pointer;
 }
