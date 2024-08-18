@@ -63,7 +63,7 @@ if (!class_exists(__NAMESPACE__.'\Service'))
                     array(
                         'paged' => '%#%',
                     ),
-                    admin_url('admin.php')
+                    $this->attribute['admin_url']
                 );
             }
 
