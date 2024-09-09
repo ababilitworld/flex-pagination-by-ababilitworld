@@ -35,7 +35,7 @@ if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio
             {
                 wp_enqueue_style(
                     'flex-pagination-by-ababilitworld-template-style', 
-                    $this->asset_url.'/css/style.css',
+                    $this->asset_url.'css/style.css',
                     array(), 
                     time()
                 );
@@ -45,7 +45,7 @@ if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio
             {
                 wp_enqueue_script(
                     'flex-pagination-by-ababilitworld-template-script', 
-                    $this->asset_url.'/js/script.js',
+                    $this->asset_url.'js/script.js',
                     array(), 
                     time(), 
                     true
