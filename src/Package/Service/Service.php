@@ -15,7 +15,7 @@ if (!class_exists(__NAMESPACE__.'\Service'))
     class Service extends Pagination
     {
         use Standard;
-        private $paginationTemplate;
+        protected $paginationTemplate;
 
         /**
          * Constructor.
