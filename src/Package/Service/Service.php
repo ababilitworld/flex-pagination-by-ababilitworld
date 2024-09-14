@@ -4,10 +4,10 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Service;
 
 (defined( 'ABSPATH' ) && defined( 'WPINC' )) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
-use Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract\Pagination;
-use function Ababilitworld\{
-    FlexPaginationByAbabilitworld\Package\Presentation\Template\template as pagination_template,
+use Ababilitworld\{
+    FlexTraitByAbabilitworld\Standard\Standard,
+    FlexPaginationByAbabilitworld\Package\Abstract\Pagination,
+    FlexPaginationByAbabilitworld\Package\Presentation\Template\Template as PaginationTemplate,
 };
 
 if (!class_exists(__NAMESPACE__.'\Service')) 
@@ -22,7 +22,7 @@ if (!class_exists(__NAMESPACE__.'\Service'))
          */
         public function __construct()
         {
-            $this->paginationTemplate = pagination_template();
+            $this->paginationTemplate = PaginationTemplate::instance();
         }
 
         /**
@@ -92,18 +92,5 @@ if (!class_exists(__NAMESPACE__.'\Service'))
                 )
             );
         }
-    }
-	
-    /**
-     * Return the instance
-     *
-     * @return \Ababilitworld\FlexPaginationByAbabilitworld\Package\Service\Service
-     */
-    function service() 
-    {
-        return Service::instance();
-    }
-		
+    }		
 }
-
-?>

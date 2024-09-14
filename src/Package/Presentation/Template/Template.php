@@ -3,18 +3,13 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Templ
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
-use function Ababilitworld\{
-    FlexPackageInfoByAbabilitworld\Package\Service\service as plugin_info,
-    FlexPortfolioByAbabilitworld\Package\package as package,
-};
-use const AbabilItWorld\{
-    FlexPaginationByAbabilitworld\Package\PACKAGE_NAME,
-    FlexPaginationByAbabilitworld\Package\PACKAGE_URL,
+use Ababilitworld\{
+    FlexTraitByAbabilitworld\Standard\Standard,
+    FlexPluginInfoByAbabilitworld\Package\Service\Service as Service,
+    FlexPaginationByAbabilitworld\Package\Package as Package,
 };
 
-
-if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio\Presentation\Pagination\Template\Template')) 
+if (!class_exists(__NAMESPACE__.'\Template')) 
 {
     class Template 
     {
@@ -88,16 +83,4 @@ if (!class_exists('\Ababilitworld\FlexPortfolioByAbabilitworld\Package\Portfolio
             }
         }
     }
-
-    /**
-     * Return the instance
-     *
-     * @return \Ababilitworld\FlexPortfolioByAbabilitworld\Package\Presentation\Pagination\Template\Template
-     */
-    function template() 
-    {
-        return Template::instance();
-    }
 }
-
-?>
