@@ -8,5 +8,3 @@ interface Pagination
     public function pagination_links();
     public function render();
 }
-
-?>

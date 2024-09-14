@@ -14,23 +14,10 @@ if (!class_exists(__NAMESPACE__.'\Package'))
     class Package 
     {
         use Standard;
-        private $package_parent_plugin_info;
 
         public function __construct() 
         {
-            $this->package_parent_plugin_info = plugin_info();                        
+                                    
         }
     }
-	
-    /**
-     * Return the instance
-     *
-     * @return \Ababilitworld\FlexPaginationByAbabilitworld\Package\Package
-     */
-    function package() 
-    {
-        return Package::instance();
-    }
 }
-
-?>

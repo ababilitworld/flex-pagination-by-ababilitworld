@@ -4,16 +4,13 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
-use Ababilitworld\FlexTraitByAbabilitworld\Security\Sanitization\Sanitization;
-use Ababilitworld\FlexPaginationByAbabilitworld\Package\Interface\Pagination as PaginationInterface;
-
-use function Ababilitworld\{
-    FlexPaginationByAbabilitworld\Package\Service\service as pagination_service,
-    FlexPaginationByAbabilitworld\Package\Presentation\Template\template as pagination_template,
+use Ababilitworld\{
+    FlexTraitByAbabilitworld\Standard\Standard,
+    FlexTraitByAbabilitworld\Security\Sanitization\Sanitization,
+    FlexPaginationByAbabilitworld\Package\Interface\Pagination as PaginationInterface
 };
 
-if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract\Pagination')) 
+if (!class_exists(__NAMESPACE__.'\Pagination')) 
 {
     abstract class Pagination implements PaginationInterface
     {
@@ -25,12 +22,7 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract
         protected $currentPage;
         protected $paginationLinks;
         protected $paginationTemplate;
-
-        /**
-         * Constructor.
-         *
-         * @param array $data Initialization data including 'query' and 'attribute'.
-         */
+        
         public function __construct($data)
         {
             $this->query = $data['query'];
@@ -46,5 +38,3 @@ if (!class_exists('\Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract
         abstract public function render();
     }
 }
-
-?>

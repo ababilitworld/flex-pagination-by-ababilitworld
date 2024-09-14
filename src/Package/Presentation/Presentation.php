@@ -4,10 +4,10 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
-use Ababilitworld\FlexTraitByAbabilitworld\Standard\Standard;
-use function Ababilitworld\{
-    FlexPluginInfoByAbabilitworld\Package\Service\service as plugin_info,
-    FlexPaginationByAbabilitworld\Package\package as package,
+use Ababilitworld\{
+    FlexTraitByAbabilitworld\Standard\Standard,
+    FlexPluginInfoByAbabilitworld\Package\Service\Service as Service,
+    FlexPaginationByAbabilitworld\Package\Package as Package,
 };
 
 if (!class_exists(__NAMESPACE__.'\Presentation')) 
@@ -20,18 +20,8 @@ if (!class_exists(__NAMESPACE__.'\Presentation'))
 
         public function __construct() 
         {
-            $this->package = package();
+            $this->package = Package::instance();
         }
-    }
-
-    /**
-     * Return the instance
-     *
-     * @return \Ababilitworld\FlexPaginationByAbabilitworld\Package\Presentation\Presentation
-     */
-    function presentation() 
-    {
-        return Presentation::instance();
     }
 }
 
