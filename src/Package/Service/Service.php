@@ -6,7 +6,7 @@ namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Service;
 
 use Ababilitworld\{
     FlexTraitByAbabilitworld\Standard\Standard,
-    FlexPaginationByAbabilitworld\Package\Abstract\Pagination,
+    FlexPaginationByAbabilitworld\Package\Base\Pagination,
     FlexPaginationByAbabilitworld\Package\Presentation\Template\Template as PaginationTemplate,
 };
 

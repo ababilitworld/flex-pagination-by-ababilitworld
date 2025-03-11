@@ -1,20 +1,20 @@
 <?php
 
-namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Abstract;
+namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Base;
 
 (defined('ABSPATH') && defined('WPINC')) || die();
 
 use Ababilitworld\{
     FlexTraitByAbabilitworld\Standard\Standard,
     FlexTraitByAbabilitworld\Security\Sanitization\Sanitization,
-    FlexPaginationByAbabilitworld\Package\Interface\Pagination as PaginationInterface
+    FlexPaginationByAbabilitworld\Package\Contract\Pagination as PaginationContract
 };
 
 if (!class_exists(__NAMESPACE__.'\Pagination')) 
 {
-    abstract class Pagination implements PaginationInterface
+    abstract class Pagination implements PaginationContract
     {
-        use Standard,Sanitization;
+        use Standard;
 
         protected $query;
         protected $attribute;

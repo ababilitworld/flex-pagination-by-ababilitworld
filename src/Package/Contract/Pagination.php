@@ -1,5 +1,5 @@
 <?php
-namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Interface;
+namespace Ababilitworld\FlexPaginationByAbabilitworld\Package\Contract;
 
 interface Pagination 
 {
